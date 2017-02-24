@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Grayscale Character Generator</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div class="container" style="margin-top:5%">
+        <h6>Grayscale Character Generator [1/6]</h6>
+        <h2>Basic Character Info</h2>
+        
+        <form action="page2.html">
+            <div class="row" style="margin-top: 5%">
+                <label>Profile Picture</label>
+                <input type='file' onchange="readURL(this);" /><br>
+                <img id="char_pic" src="#" alt="Profile Image" width="150" height="150"><br>
+            </div>
+            
+            <div class="row" style="margin-top: 5%">
+                <label>Name</label>
+                <input class="u-full-width" type="text" placeholder="Firstname Lastname" id="char_name">
+                    
+                <label>Title</label>
+                <input class="u-full-width" type="text" placeholder="The Artist, The Coder, etc." id="char_title">
+            </div>
+            
+            <div class="row" style="margin-top: 5%">
+                <div class="six columns">
+                    <label>Age (in years)</label>
+                    <input class="u-full-width" id="char_age" type="number" name="age">
+                </div>
+
+                <div class="six columns">
+                    <label>Gender</label>
+                    <input type="radio" name="gender" value="male"><span class="label-body" style="margin-right: 5%;"> Male</span>
+                    <input type="radio" name="gender" value="female"><span class="label-body" style="margin-right: 5%;"> Female</span>
+                    <input type="radio" name="gender" value="other"><span class="label-body" style="margin-right: 5%;"> Other</span>
+                </div>
+            </div>
+            
+            <div class="row" style="margin-top: 5%">
+                <div class="six columns">
+                    <label>Location</label>
+                    <input class="u-full-width" id="char_loc" type="text" placeholder="Utrecht, the midwest, Hawaii, etc." name="location">
+                </div>
+                
+                <div class="six columns">
+                    <label>Environment</label>
+                    <input type="checkbox" name="areatype" value="Rural"><span class="label-body" style="margin-right: 5%;"> Rural</span>
+                    <input type="checkbox" name="areatype" value="Suburban"><span class="label-body" style="margin-right: 5%;"> Suburban</span>
+                    <input type="checkbox" name="areatype" value="Urban"><span class="label-body" style="margin-right: 5%;"> Urban</span>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10%">
+                <input id="subTest" type="submit" value="Next" style="float: right" class="button-primary">
+                <a href="#" class="button">back (input will not be saved)</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

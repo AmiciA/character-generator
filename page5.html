@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Grayscale Character Generator</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div style="width:80%; height:5px; background: #33C3F0;"></div>
+    
+    <div class="container" style="margin-top:5%">
+        <h6>Grayscale Character Generator [5/6]</h6>
+        <h2>Product/Serivce Info</h2>
+            <form action="results.html">
+                <div class="row" style="margin-top: 5%">
+                    <label>Product/Service Image (keep small)</label>
+                    <input type='file' onchange="readURLprod(this);" /><br>
+                    <img id="prod_pic" src="#" alt="Product Image" width="150" height="150"><br>
+                </div>
+
+                <div class="row" style="margin-top: 5%">
+                    <label>Product/Service Title</label>
+                    <input class="u-full-width" type="text" placeholder="Widget 2.0" id="prod_name">
+
+                    <label>Product/Service Artifact</label>
+                    <input class="u-full-width" type="text" placeholder="website, app, kiosk, etc." id="prod_type">
+                    
+                    <label>Product/Service Environment</label>
+                    <input class="u-full-width" type="text" placeholder="at home, at work, on-the-go, etc." id="prod_environ">
+                    
+                    <label>Product/Service Data Presented</label>
+                    <input class="u-full-width" type="text" placeholder="employee data, stuff for sale, etc." id="prod_data">
+                </div>
+                
+                <h2 style="margin-top:10%;">Character's Encounter</h2>
+                
+                <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
+                    <img id="pichere" src="" width="50" height="50" style="float:left;">
+                    <div style="float:left; margin-left: 15px;">
+                        <span id="namehere" style="font-weight: 600;">[name]</span><br>
+                        <span id="titlehere">[title]</span><br>       
+                    </div>
+                    <div style="float:right">
+                        ⚑ <span id="lochere">[location]</span>
+                    </div>
+                </div>
+                
+                <div class="row" style="margin-top: 5%">
+                    <label>Length of Encounter with Product/Service</label>
+                    <input class="u-full-width" type="text" placeholder="5 minutes, 1 hour, etc." id="prod_time">
+                    
+                    <label>Character's State of Mind</label>
+                    <textarea id="gs_3"  class="u-full-width"></textarea>
+                    
+                    <label>Character's Goal #1</label>
+                    <textarea id="gs_1"  class="u-full-width"></textarea>
+                    
+                    <label>Character's Goal #2</label>
+                    <textarea id="gs_2"  class="u-full-width"></textarea>
+                </div>                         
+            <div class="row" style="margin-top: 10%">
+                <input id="subP5" type="submit" value="Next" style="float: right" class="button-primary">
+                <a href="page2.html" class="button">back (input will not be saved)</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+                    <!--Product Name:<br>   
+                    <input id="prod_name" type="text" name="pname"><br>
+                    
+                    Product Environment:<br>
+                    <input id="prod_environ" type="text" name="penviron" value="eg. at home, at work, on-the-go"><br>
+                    
+                    Product Type/Artifact Encountered:<br>
+                    <input id="prod_type" type="text" name="ptype" value="eg. a website"><br>
+                    
+                    Product Data Presented:<br>
+                    <input id="prod_data" type="text" name="pdata" value="eg. used cars, employee registry, photos"><br>
+                    
+                    Length of Encounter:<br>
+                    <input id="prod_time" type="number" name="ptime"><br>
+                    
+                    Product Image (keep small plz):<input type='file' onchange="readURLprod(this);" /><br>
+                    <img id="prod_pic" src="#" alt="Product Image" width="150" height="150"><br>
+                    
+                    <h4>Character's Goals</h4>
+                    1: <textarea id="gs_1" rows="50" cols="50"></textarea>
+                    2: <textarea id="gs_2" rows="50" cols="50"></textarea>
+                    
+                    <h4>Character's State of Mind</h4>
+                    1: <textarea id="gs_3" rows="50" cols="50"></textarea>
+  
+                    <input id="subP5" type="submit" value="Next">-->
