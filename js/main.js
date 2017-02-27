@@ -165,6 +165,13 @@ $(document).ready(function() {
     // IS3
     $("#is3here").html(localStorage.getItem("is 3"));
     
+    // GS1
+    $("#gs1here").html(localStorage.getItem("gs 1"));     
+    // GS2
+    $("#gs2here").html(localStorage.getItem("gs 2"));       
+    // GS3
+    $("#gs3here").html(localStorage.getItem("gs 3"));
+    
     // PNAME
     $("#pnamehere").html(localStorage.getItem("prod name"));
     // PTITLE
