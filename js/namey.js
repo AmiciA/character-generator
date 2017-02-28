@@ -79,7 +79,7 @@ window.namey = {
 
 	      }
 
-	      this.jsonP.get('//' + host + '/name.json', tmp_params, function(d) {
+	      this.jsonP.get('http://' + host + '/name.json', tmp_params, function(d) {
 	          if ( typeof(callback) == "function" ) {
 		            callback(d);
 	          }
