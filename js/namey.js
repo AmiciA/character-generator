@@ -89,3 +89,5 @@ window.namey = {
 	      });
     }
 }
+
+namey.get({ count: 3, callback: function(n) { console.log(n); }}); ;
