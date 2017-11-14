@@ -1,200 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Grayscale Character Generator</title>
+    <head>
+        <meta charset="utf-8">
+        <title>Grayscale Character Generator</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
-    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/skeleton.css">
+        <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/namey.js"></script>
-    <script src="js/main.js"></script>
-</head>
-<body>
-    <div id="view">
-        <!-- Basic Character Info -->
-        <section class="page-one">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- vue:production -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js"></script>
+        <!-- vue:live -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script> -->
+        <script src="js/namey.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+    <body>
+        <div id="view">
             <div class="container" style="margin-top:5%">
-                <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                <h6 style="float:right">[1/6]</h6>
-                <h1>Basic Character Info</h1>
-                
-                <form action="page2.html">
-                    <div class="row" style="margin-top: 5%">
-                        <label>Profile Picture</label>
-                        <input type='file' onchange="readURL(this);" /><br>
-                        <img id="char_pic" src="#" alt="Profile Image" width="150" height="150"><br>
-                    </div>
-                    
-                    <div class="row" style="margin-top: 5%">
-                        <label>Name</label>
-                        <input class="u-full-width" type="text" placeholder="Firstname Lastname" id="char_name">
+                <header>
+                    <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
+                    <h6 style="float:right">[1/6]</h6>
+                    <h1>Basic Character Info</h1>
+                </header>
+                <!-- Basic Character Info -->
+                <section class="page-one">
+                    <form action="page2.html">
+                        <div class="row" style="margin-top: 5%">
+                            <label>Profile Picture</label>
+                            <input type='file' onchange="readURL(this);" /><br>
+                            <img id="char_pic" src="#" alt="Profile Image" width="150" height="150"><br>
+                        </div>
+                        
+                        <div class="row" style="margin-top: 5%">
+                            <label>Name</label>
+                            <input class="u-full-width" type="text" placeholder="Firstname Lastname" id="char_name">
+                                
+                            <label>Title</label>
+                            <input class="u-full-width" type="text" placeholder="The Artist, The Coder, etc." id="char_title">
+                        </div>
+                        
+                        <div class="row" style="margin-top: 5%">
+                            <div class="six columns">
+                                <label>Age (in years)</label>
+                                <input class="u-full-width" id="char_age" type="number" name="age">
+                            </div>
+
+                            <div class="six columns">
+                                <label>Gender</label>
+                                <input type="radio" name="gender" value="male"><span class="label-body" style="margin-right: 5%;"> Male</span>
+                                <input type="radio" name="gender" value="female"><span class="label-body" style="margin-right: 5%;"> Female</span>
+                                <input type="radio" name="gender" value="other"><span class="label-body" style="margin-right: 5%;"> Other</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-top: 5%">
+                            <div class="six columns">
+                                <label>Location</label>
+                                <input class="u-full-width" id="char_loc" type="text" placeholder="Utrecht, the midwest, Hawaii, etc." name="location">
+                            </div>
                             
-                        <label>Title</label>
-                        <input class="u-full-width" type="text" placeholder="The Artist, The Coder, etc." id="char_title">
+                            <div class="six columns">
+                                <label>Environment</label>
+                                <input type="checkbox" name="areatype" value="Rural"><span class="label-body" style="margin-right: 5%;"> Rural</span>
+                                <input type="checkbox" name="areatype" value="Suburban"><span class="label-body" style="margin-right: 5%;"> Suburban</span>
+                                <input type="checkbox" name="areatype" value="Urban"><span class="label-body" style="margin-right: 5%;"> Urban</span>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10%">
+                            <input id="subTest" type="submit" value="Next" style="float: right" class="button-primary">
+                        </div>
+                    </form>
+                </section>
+                <!-- Anxieties & Motivations -->
+                <section class="page-two" data-title="Anxieties &amp; Motivations">
+                    <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
+                        <img id="pichere" src="" width="50" height="50" style="float:left;">
+                        <div style="float:left; margin-left: 15px;">
+                            <span id="namehere" style="font-weight: 600;">[name]</span><br>
+                            <span id="titlehere">[title]</span><br>       
+                        </div>
+                        <div style="float:right">
+                            ⚑ <span id="lochere">[location]</span>
+                        </div>
                     </div>
                     
-                    <div class="row" style="margin-top: 5%">
-                        <div class="six columns">
-                            <label>Age (in years)</label>
-                            <input class="u-full-width" id="char_age" type="number" name="age">
+                    <form action="page3.html">
+                        <div class="row" style="margin-top: 15%;">
+                            Fill in as many as you need.
+                            
+                            <label>Anxiety/Motivation 1</label>
+                            <textarea id="am_1" class="u-full-width"></textarea>
+
+                            <label>Anxiety/Motivation 2</label>
+                            <textarea id="am_2"  class="u-full-width"></textarea>
+
+                            <label>Anxiety/Motivation 3</label>
+                            <textarea id="am_3"  class="u-full-width"></textarea>
                         </div>
 
-                        <div class="six columns">
-                            <label>Gender</label>
-                            <input type="radio" name="gender" value="male"><span class="label-body" style="margin-right: 5%;"> Male</span>
-                            <input type="radio" name="gender" value="female"><span class="label-body" style="margin-right: 5%;"> Female</span>
-                            <input type="radio" name="gender" value="other"><span class="label-body" style="margin-right: 5%;"> Other</span>
+                        <div class="row" style="margin-top: 10%">
+                            <input id="subP2" type="submit" value="Next" style="float: right" class="button-primary">
+                            <a href="index.html" class="button">back (input will not be saved)</a>
+                        </div>
+                    </form>
+                </section>
+                <!-- Influencing Events -->
+                <section class="page-three" data-title="Influencing Events">
+                    <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
+                        <img id="pichere" src="" width="50" height="50" style="float:left;">
+                        <div style="float:left; margin-left: 15px;">
+                            <span id="namehere" style="font-weight: 600;">[name]</span><br>
+                            <span id="titlehere">[title]</span><br>       
+                        </div>
+                        <div style="float:right">
+                            ⚑ <span id="lochere">[location]</span>
                         </div>
                     </div>
                     
-                    <div class="row" style="margin-top: 5%">
-                        <div class="six columns">
-                            <label>Location</label>
-                            <input class="u-full-width" id="char_loc" type="text" placeholder="Utrecht, the midwest, Hawaii, etc." name="location">
+                    <form action="page4.html">
+                        <div class="row" style="margin-top: 15%;">
+                            Fill in as many as you need.
+                            
+                            <label>Event 1</label>
+                            <textarea id="ie_1" class="u-full-width"></textarea>
+
+                            <label>Event 2</label>
+                            <textarea id="ie_2"  class="u-full-width"></textarea>
+
+                            <label>Event 3</label>
+                            <textarea id="ie_3"  class="u-full-width"></textarea>
                         </div>
-                        
-                        <div class="six columns">
-                            <label>Environment</label>
-                            <input type="checkbox" name="areatype" value="Rural"><span class="label-body" style="margin-right: 5%;"> Rural</span>
-                            <input type="checkbox" name="areatype" value="Suburban"><span class="label-body" style="margin-right: 5%;"> Suburban</span>
-                            <input type="checkbox" name="areatype" value="Urban"><span class="label-body" style="margin-right: 5%;"> Urban</span>
+
+                        <div class="row" style="margin-top: 10%">
+                            <input id="subP3" type="submit" value="Next" style="float: right" class="button-primary">
+                            <a href="page2.html" class="button">back (input will not be saved)</a>
+                        </div>
+                    </form>
+                </section>
+                <!-- Triggering Situations -->
+                <section class="page-four" data-title="Triggering Situations">
+                    <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
+                        <img id="pichere" src="" width="50" height="50" style="float:left;">
+                        <div style="float:left; margin-left: 15px;">
+                            <span id="namehere" style="font-weight: 600;">[name]</span><br>
+                            <span id="titlehere">[title]</span><br>       
+                        </div>
+                        <div style="float:right">
+                            ⚑ <span id="lochere">[location]</span>
                         </div>
                     </div>
+                    
+                    <form action="page5.html">
+                        <div class="row" style="margin-top: 15%;">
+                            Fill in as many as you need.
+                            
+                            <label>Situation 1</label>
+                            <textarea id="is_1" class="u-full-width"></textarea>
 
-                    <div class="row" style="margin-top: 10%">
-                        <input id="subTest" type="submit" value="Next" style="float: right" class="button-primary">
-                    </div>
-                </form>
-            </div>
-        </section>
-        <!-- Anxieties & Motivations -->
-        <section class="page-two">
-            <div class="container" style="margin-top:5%">
-                <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                <h6 style="float:right">[2/6]</h6>
-                <h2>Anxieties &amp; Motivations</h2>
-                
-                <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                    <img id="pichere" src="" width="50" height="50" style="float:left;">
-                    <div style="float:left; margin-left: 15px;">
-                        <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                        <span id="titlehere">[title]</span><br>       
-                    </div>
-                    <div style="float:right">
-                        ⚑ <span id="lochere">[location]</span>
-                    </div>
-                </div>
-                
-                <form action="page3.html">
-                    <div class="row" style="margin-top: 15%;">
-                        Fill in as many as you need.
-                        
-                        <label>Anxiety/Motivation 1</label>
-                        <textarea id="am_1" class="u-full-width"></textarea>
+                            <label>Situation 2</label>
+                            <textarea id="is_2"  class="u-full-width"></textarea>
 
-                        <label>Anxiety/Motivation 2</label>
-                        <textarea id="am_2"  class="u-full-width"></textarea>
+                            <label>Situation 3</label>
+                            <textarea id="is_3"  class="u-full-width"></textarea>
+                        </div>
 
-                        <label>Anxiety/Motivation 3</label>
-                        <textarea id="am_3"  class="u-full-width"></textarea>
-                    </div>
-
-                    <div class="row" style="margin-top: 10%">
-                        <input id="subP2" type="submit" value="Next" style="float: right" class="button-primary">
-                        <a href="index.html" class="button">back (input will not be saved)</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <!-- Influencing Events -->
-        <section class="page-three">
-            <div class="container" style="margin-top:5%">
-                <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                <h6 style="float:right">[3/6]</h6>
-                <h2>Influencing Events</h2>
-                
-                <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                    <img id="pichere" src="" width="50" height="50" style="float:left;">
-                    <div style="float:left; margin-left: 15px;">
-                        <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                        <span id="titlehere">[title]</span><br>       
-                    </div>
-                    <div style="float:right">
-                        ⚑ <span id="lochere">[location]</span>
-                    </div>
-                </div>
-                
-                <form action="page4.html">
-                    <div class="row" style="margin-top: 15%;">
-                        Fill in as many as you need.
-                        
-                        <label>Event 1</label>
-                        <textarea id="ie_1" class="u-full-width"></textarea>
-
-                        <label>Event 2</label>
-                        <textarea id="ie_2"  class="u-full-width"></textarea>
-
-                        <label>Event 3</label>
-                        <textarea id="ie_3"  class="u-full-width"></textarea>
-                    </div>
-
-                    <div class="row" style="margin-top: 10%">
-                        <input id="subP3" type="submit" value="Next" style="float: right" class="button-primary">
-                        <a href="page2.html" class="button">back (input will not be saved)</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <!-- Triggering Situations -->
-        <section class="page-four">
-            <div class="container" style="margin-top:5%">
-                <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                <h6 style="float:right">[4/6]</h6>
-                <h2>Triggering Situations</h2>
-                
-                <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                    <img id="pichere" src="" width="50" height="50" style="float:left;">
-                    <div style="float:left; margin-left: 15px;">
-                        <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                        <span id="titlehere">[title]</span><br>       
-                    </div>
-                    <div style="float:right">
-                        ⚑ <span id="lochere">[location]</span>
-                    </div>
-                </div>
-                
-                <form action="page5.html">
-                    <div class="row" style="margin-top: 15%;">
-                        Fill in as many as you need.
-                        
-                        <label>Situation 1</label>
-                        <textarea id="is_1" class="u-full-width"></textarea>
-
-                        <label>Situation 2</label>
-                        <textarea id="is_2"  class="u-full-width"></textarea>
-
-                        <label>Situation 3</label>
-                        <textarea id="is_3"  class="u-full-width"></textarea>
-                    </div>
-
-                    <div class="row" style="margin-top: 10%">
-                        <input id="subP4" type="submit" value="Next" style="float: right" class="button-primary">
-                        <a href="page2.html" class="button">back (input will not be saved)</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <!-- Product/Service Info -->
-        <section class="page-five">
-            <div class="container" style="margin-top:5%">
-                <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                <h6 style="float:right">[5/6]</h6>
-                <h2>Product/Service Info</h2>
+                        <div class="row" style="margin-top: 10%">
+                            <input id="subP4" type="submit" value="Next" style="float: right" class="button-primary">
+                            <a href="page2.html" class="button">back (input will not be saved)</a>
+                        </div>
+                    </form>
+                </section>
+                <!-- Product/Service Info -->
+                <section class="page-five" data-title="Product/Service Info">
+                    
                     <form action="results.html">
                         <div class="row" style="margin-top: 5%">
                             <label>Product/Service Image (keep small)</label>
@@ -242,76 +225,71 @@
                             <label>Character's Goal #2</label>
                             <textarea id="gs_2"  class="u-full-width"></textarea>
                         </div>                         
+                        <div class="row" style="margin-top: 10%">
+                            <input id="subP5" type="submit" value="Finish!" style="float: right" class="button-primary">
+                            <a href="page2.html" class="button">back (input will not be saved)</a>
+                        </div>
+                    </form>
+                </section>
+                <!-- Results -->
+                <section class="page-six" data-title="Results!">
+                    <div class="row">                
+                        <div class="six columns" style="margin-top: 5%; background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
+                            <img id="pichere" src="" width="150" height="150" style="display:block; margin: 0 auto;"><br>
+                            <span id="namehere" style="font-weight: 600;"></span><br>
+                            <span id="titlehere"></span><br>
+                            <span id="gendhere"></span>, age <span id="agehere"></span><br>
+                            <span id="lochere"></span> (<span id="areahere"></span>)
+                            <br><br><br>
+                            <a href="index.html">✎ edit character</a>
+                        </div>
+                        
+                        <div class="six columns" style="margin-top: 5%; background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
+                            <img id="ppichere" src="" width="150" height="150" style="display:block; margin: 0 auto;"><br>
+                            <span id="pnamehere" style="font-weight: 600;"></span><br>
+                            <span id="ptypehere"></span><br>
+                            <span id="pdatahere"></span><br>
+                            <span id="penvironhere"></span><br>
+                            Length of Encounter: <span id="ptimehere"></span>
+                            <br><br>
+                            <a href="page5.html">✎ edit product</a>
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="margin-top:10%;">
+                        <label>Anxieties &amp; Motivations <a href="page2.html">✎ edit</a></label>
+                            <div id="am1here"></div><br>
+                            <div id="am2here"></div><br>
+                            <div id="am3here"></div><br>
+                        
+                        <label style="margin-top:5%;">Influencing Events <a href="page3.html">✎ edit</a></label>
+                            <div id="ie1here"></div><br>
+                            <div id="ie2here"></div><br>
+                            <div id="ie3here"></div><br>
+                        
+                        <label style="margin-top:5%;">Triggering Situations <a href="page4.html">✎ edit</a></label>
+                            <div id="is1here"></div><br>
+                            <div id="is2here"></div><br>
+                            <div id="is3here"></div><br>
+                        
+                        <label style="margin-top:5%;">State of Mind <a href="page5.html">✎ edit</a></label>
+                            <div id="gs3here"></div>
+                        
+                        <label style="margin-top:5%;">Goals <a href="page5.html">✎ edit</a></label>
+                            <div id="gs1here"></div><br>
+                            <div id="gs2here"></div>
+                        
+                        <label style="margin-top:5%;">Some Questions to ask yourself:</label>
+                            <span>Would this person become a user of your product?</span><br>
+                            <span>Does this person represent your current user base?</span>
+                    </div>
+                    
                     <div class="row" style="margin-top: 10%">
-                        <input id="subP5" type="submit" value="Finish!" style="float: right" class="button-primary">
-                        <a href="page2.html" class="button">back (input will not be saved)</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <!-- Results -->
-        <section class="page-six">
-            <div class="container" style="margin-top:5%">
-                <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                <h6 style="float:right">[6/6]</h6>
-                <h2>Results!</h2>
-                <div class="row">                
-                    <div class="six columns" style="margin-top: 5% background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                        <img id="pichere" src="" width="150" height="150" style="display:block; margin: 0 auto;"><br>
-                        <span id="namehere" style="font-weight: 600;"></span><br>
-                        <span id="titlehere"></span><br>
-                        <span id="gendhere"></span>, age <span id="agehere"></span><br>
-                        <span id="lochere"></span> (<span id="areahere"></span>)
-                        <br><br><br>
-                        <a href="index.html">✎ edit character</a>
-                    </div>
-                    
-                    <div class="six columns" style="margin-top: 5% background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                        <img id="ppichere" src="" width="150" height="150" style="display:block; margin: 0 auto;"><br>
-                        <span id="pnamehere" style="font-weight: 600;"></span><br>
-                        <span id="ptypehere"></span><br>
-                        <span id="pdatahere"></span><br>
-                        <span id="penvironhere"></span><br>
-                        Length of Encounter: <span id="ptimehere"></span>
-                        <br><br>
-                        <a href="page5.html">✎ edit product</a>
-                    </div>
-                </div>
-                
-                <div class="row" style="margin-top:10%;">
-                    <label>Anxieties &amp; Motivations <a href="page2.html">✎ edit</a></label>
-                        <div id="am1here"></div><br>
-                        <div id="am2here"></div><br>
-                        <div id="am3here"></div><br>
-                    
-                    <label style="margin-top:5%;">Influencing Events <a href="page3.html">✎ edit</a></label>
-                        <div id="ie1here"></div><br>
-                        <div id="ie2here"></div><br>
-                        <div id="ie3here"></div><br>
-                    
-                    <label style="margin-top:5%;">Triggering Situations <a href="page4.html">✎ edit</a></label>
-                        <div id="is1here"></div><br>
-                        <div id="is2here"></div><br>
-                        <div id="is3here"></div><br>
-                    
-                    <label style="margin-top:5%;">State of Mind <a href="page5.html">✎ edit</a></label>
-                        <div id="gs3here"></div>
-                    
-                    <label style="margin-top:5%;">Goals <a href="page5.html">✎ edit</a></label>
-                        <div id="gs1here"></div><br>
-                        <div id="gs2here"></div>
-                    
-                    <label style="margin-top:5%;">Some Questions to ask yourself:</label>
-                        <span>Would this person become a user of your product?</span><br>
-                        <span>Does this person represent your current user base?</span>
-                </div>
-                
-                <div class="row" style="margin-top: 10%">
                         <input id="#" type="submit" value="Save Character!" style="float: right" class="button-primary">
                         <a href="page2.html" class="button">back</a>
-                </div>
+                    </div>
+                </section>
             </div>
-        </section>
-    </div>
-</body>
+        </div>
+    </body>
 </html>
