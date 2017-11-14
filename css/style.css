@@ -1,1 +1,42 @@
 /* styles */
+
+.container {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+section {
+  display: none;
+}
+
+section.active {
+  display: block;
+}
+
+section .row {
+  margin-top: 18px;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.24);
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+
+.card-persona {
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
+.columns.card {
+  display: block;
+}
+
+.columns.card {
+  display: block;
+}

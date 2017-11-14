@@ -1,295 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Grayscale Character Generator</title>
+  <head>
+    <meta charset="utf-8">
+    <title>Grayscale Character Generator</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/skeleton.css">
-        <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/style.css">
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- vue:production -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js"></script>
-        <!-- vue:live -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script> -->
-        <script src="js/namey.js"></script>
-        <script src="js/main.js"></script>
-    </head>
-    <body>
-        <div id="view">
-            <div class="container" style="margin-top:5%">
-                <header>
-                    <a href="index.html">⌂&nbsp; Character Generator (back to start)</a>
-                    <h6 style="float:right">[1/6]</h6>
-                    <h1>Basic Character Info</h1>
-                </header>
-                <!-- Basic Character Info -->
-                <section class="page-one">
-                    <form action="page2.html">
-                        <div class="row" style="margin-top: 5%">
-                            <label>Profile Picture</label>
-                            <input type='file' onchange="readURL(this);" /><br>
-                            <img id="char_pic" src="#" alt="Profile Image" width="150" height="150"><br>
-                        </div>
-                        
-                        <div class="row" style="margin-top: 5%">
-                            <label>Name</label>
-                            <input class="u-full-width" type="text" placeholder="Firstname Lastname" id="char_name">
-                                
-                            <label>Title</label>
-                            <input class="u-full-width" type="text" placeholder="The Artist, The Coder, etc." id="char_title">
-                        </div>
-                        
-                        <div class="row" style="margin-top: 5%">
-                            <div class="six columns">
-                                <label>Age (in years)</label>
-                                <input class="u-full-width" id="char_age" type="number" name="age">
-                            </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- vue:production -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js"></script>
+    <!-- vue:live -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script> -->
+    <!-- <script src="js/namey.js"></script> -->
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <div id="view">
+      <div class="container">
+        <!-- header:start -->
+        <header>
+          <a href="#" v-on:click.stop="pageTurn(0)">⌂&nbsp; Character Generator (back to start)</a>
+          <h6 style="float:right">[{{ index+1 }}/{{ sections.length }}]</h6>
+          <h1>{{ sectionTitle }}</h1>
+        </header>
+        <!-- header:end -->
 
-                            <div class="six columns">
-                                <label>Gender</label>
-                                <input type="radio" name="gender" value="male"><span class="label-body" style="margin-right: 5%;"> Male</span>
-                                <input type="radio" name="gender" value="female"><span class="label-body" style="margin-right: 5%;"> Female</span>
-                                <input type="radio" name="gender" value="other"><span class="label-body" style="margin-right: 5%;"> Other</span>
-                            </div>
-                        </div>
-                        
-                        <div class="row" style="margin-top: 5%">
-                            <div class="six columns">
-                                <label>Location</label>
-                                <input class="u-full-width" id="char_loc" type="text" placeholder="Utrecht, the midwest, Hawaii, etc." name="location">
-                            </div>
-                            
-                            <div class="six columns">
-                                <label>Environment</label>
-                                <input type="checkbox" name="areatype" value="Rural"><span class="label-body" style="margin-right: 5%;"> Rural</span>
-                                <input type="checkbox" name="areatype" value="Suburban"><span class="label-body" style="margin-right: 5%;"> Suburban</span>
-                                <input type="checkbox" name="areatype" value="Urban"><span class="label-body" style="margin-right: 5%;"> Urban</span>
-                            </div>
-                        </div>
+        <!-- pages:start -->
+        <!-- Basic Character Info -->
+        <section class="page-one" v-bind:class="{ active: index == 0 }" data-title="Basic Character Info">
+          <div class="row">
+            <label>Profile Picture</label>
+            <input type='file' name="character" v-on:change="readImg" /><br>
+            <img v-if="character.image" id="char_pic" v-bind:src="character.image" alt="Profile Image" width="150" height="150"><br>
+          </div>
+          
+          <div class="row">
+            <label for="char-name">Name</label>
+            <input id="char-name" class="u-full-width" type="text" placeholder="First-name Last-name" v-model="character.name">
+          </div>
 
-                        <div class="row" style="margin-top: 10%">
-                            <input id="subTest" type="submit" value="Next" style="float: right" class="button-primary">
-                        </div>
-                    </form>
-                </section>
-                <!-- Anxieties & Motivations -->
-                <section class="page-two" data-title="Anxieties &amp; Motivations">
-                    <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                        <img id="pichere" src="" width="50" height="50" style="float:left;">
-                        <div style="float:left; margin-left: 15px;">
-                            <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                            <span id="titlehere">[title]</span><br>       
-                        </div>
-                        <div style="float:right">
-                            ⚑ <span id="lochere">[location]</span>
-                        </div>
-                    </div>
-                    
-                    <form action="page3.html">
-                        <div class="row" style="margin-top: 15%;">
-                            Fill in as many as you need.
-                            
-                            <label>Anxiety/Motivation 1</label>
-                            <textarea id="am_1" class="u-full-width"></textarea>
-
-                            <label>Anxiety/Motivation 2</label>
-                            <textarea id="am_2"  class="u-full-width"></textarea>
-
-                            <label>Anxiety/Motivation 3</label>
-                            <textarea id="am_3"  class="u-full-width"></textarea>
-                        </div>
-
-                        <div class="row" style="margin-top: 10%">
-                            <input id="subP2" type="submit" value="Next" style="float: right" class="button-primary">
-                            <a href="index.html" class="button">back (input will not be saved)</a>
-                        </div>
-                    </form>
-                </section>
-                <!-- Influencing Events -->
-                <section class="page-three" data-title="Influencing Events">
-                    <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                        <img id="pichere" src="" width="50" height="50" style="float:left;">
-                        <div style="float:left; margin-left: 15px;">
-                            <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                            <span id="titlehere">[title]</span><br>       
-                        </div>
-                        <div style="float:right">
-                            ⚑ <span id="lochere">[location]</span>
-                        </div>
-                    </div>
-                    
-                    <form action="page4.html">
-                        <div class="row" style="margin-top: 15%;">
-                            Fill in as many as you need.
-                            
-                            <label>Event 1</label>
-                            <textarea id="ie_1" class="u-full-width"></textarea>
-
-                            <label>Event 2</label>
-                            <textarea id="ie_2"  class="u-full-width"></textarea>
-
-                            <label>Event 3</label>
-                            <textarea id="ie_3"  class="u-full-width"></textarea>
-                        </div>
-
-                        <div class="row" style="margin-top: 10%">
-                            <input id="subP3" type="submit" value="Next" style="float: right" class="button-primary">
-                            <a href="page2.html" class="button">back (input will not be saved)</a>
-                        </div>
-                    </form>
-                </section>
-                <!-- Triggering Situations -->
-                <section class="page-four" data-title="Triggering Situations">
-                    <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                        <img id="pichere" src="" width="50" height="50" style="float:left;">
-                        <div style="float:left; margin-left: 15px;">
-                            <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                            <span id="titlehere">[title]</span><br>       
-                        </div>
-                        <div style="float:right">
-                            ⚑ <span id="lochere">[location]</span>
-                        </div>
-                    </div>
-                    
-                    <form action="page5.html">
-                        <div class="row" style="margin-top: 15%;">
-                            Fill in as many as you need.
-                            
-                            <label>Situation 1</label>
-                            <textarea id="is_1" class="u-full-width"></textarea>
-
-                            <label>Situation 2</label>
-                            <textarea id="is_2"  class="u-full-width"></textarea>
-
-                            <label>Situation 3</label>
-                            <textarea id="is_3"  class="u-full-width"></textarea>
-                        </div>
-
-                        <div class="row" style="margin-top: 10%">
-                            <input id="subP4" type="submit" value="Next" style="float: right" class="button-primary">
-                            <a href="page2.html" class="button">back (input will not be saved)</a>
-                        </div>
-                    </form>
-                </section>
-                <!-- Product/Service Info -->
-                <section class="page-five" data-title="Product/Service Info">
-                    
-                    <form action="results.html">
-                        <div class="row" style="margin-top: 5%">
-                            <label>Product/Service Image (keep small)</label>
-                            <input type='file' onchange="readURLprod(this);" /><br>
-                            <img id="prod_pic" src="#" alt="Product Image" width="150" height="150"><br>
-                        </div>
-
-                        <div class="row" style="margin-top: 5%">
-                            <label>Product/Service Title</label>
-                            <input class="u-full-width" type="text" placeholder="Widget 2.0" id="prod_name">
-
-                            <label>Product/Service Artifact</label>
-                            <input class="u-full-width" type="text" placeholder="website, app, kiosk, etc." id="prod_type">
-                            
-                            <label>Product/Service Environment</label>
-                            <input class="u-full-width" type="text" placeholder="at home, at work, on-the-go, etc." id="prod_environ">
-                            
-                            <label>Product/Service Data Presented</label>
-                            <input class="u-full-width" type="text" placeholder="employee data, stuff for sale, etc." id="prod_data">
-                        </div>
-                        
-                        <h2 style="margin-top:10%;">Character's Encounter</h2>
-                        
-                        <div class="row" style="background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                            <img id="pichere" src="" width="50" height="50" style="float:left;">
-                            <div style="float:left; margin-left: 15px;">
-                                <span id="namehere" style="font-weight: 600;">[name]</span><br>
-                                <span id="titlehere">[title]</span><br>       
-                            </div>
-                            <div style="float:right">
-                                ⚑ <span id="lochere">[location]</span>
-                            </div>
-                        </div>
-                        
-                        <div class="row" style="margin-top: 5%">
-                            <label>Length of Encounter with Product/Service</label>
-                            <input class="u-full-width" type="text" placeholder="5 minutes, 1 hour, etc." id="prod_time">
-                            
-                            <label>Character's State of Mind</label>
-                            <textarea id="gs_3"  class="u-full-width"></textarea>
-                            
-                            <label>Character's Goal #1</label>
-                            <textarea id="gs_1"  class="u-full-width"></textarea>
-                            
-                            <label>Character's Goal #2</label>
-                            <textarea id="gs_2"  class="u-full-width"></textarea>
-                        </div>                         
-                        <div class="row" style="margin-top: 10%">
-                            <input id="subP5" type="submit" value="Finish!" style="float: right" class="button-primary">
-                            <a href="page2.html" class="button">back (input will not be saved)</a>
-                        </div>
-                    </form>
-                </section>
-                <!-- Results -->
-                <section class="page-six" data-title="Results!">
-                    <div class="row">                
-                        <div class="six columns" style="margin-top: 5%; background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                            <img id="pichere" src="" width="150" height="150" style="display:block; margin: 0 auto;"><br>
-                            <span id="namehere" style="font-weight: 600;"></span><br>
-                            <span id="titlehere"></span><br>
-                            <span id="gendhere"></span>, age <span id="agehere"></span><br>
-                            <span id="lochere"></span> (<span id="areahere"></span>)
-                            <br><br><br>
-                            <a href="index.html">✎ edit character</a>
-                        </div>
-                        
-                        <div class="six columns" style="margin-top: 5%; background:white; padding:10px; box-shadow: 0 1px 2px rgba(0,0,0,0.24);">
-                            <img id="ppichere" src="" width="150" height="150" style="display:block; margin: 0 auto;"><br>
-                            <span id="pnamehere" style="font-weight: 600;"></span><br>
-                            <span id="ptypehere"></span><br>
-                            <span id="pdatahere"></span><br>
-                            <span id="penvironhere"></span><br>
-                            Length of Encounter: <span id="ptimehere"></span>
-                            <br><br>
-                            <a href="page5.html">✎ edit product</a>
-                        </div>
-                    </div>
-                    
-                    <div class="row" style="margin-top:10%;">
-                        <label>Anxieties &amp; Motivations <a href="page2.html">✎ edit</a></label>
-                            <div id="am1here"></div><br>
-                            <div id="am2here"></div><br>
-                            <div id="am3here"></div><br>
-                        
-                        <label style="margin-top:5%;">Influencing Events <a href="page3.html">✎ edit</a></label>
-                            <div id="ie1here"></div><br>
-                            <div id="ie2here"></div><br>
-                            <div id="ie3here"></div><br>
-                        
-                        <label style="margin-top:5%;">Triggering Situations <a href="page4.html">✎ edit</a></label>
-                            <div id="is1here"></div><br>
-                            <div id="is2here"></div><br>
-                            <div id="is3here"></div><br>
-                        
-                        <label style="margin-top:5%;">State of Mind <a href="page5.html">✎ edit</a></label>
-                            <div id="gs3here"></div>
-                        
-                        <label style="margin-top:5%;">Goals <a href="page5.html">✎ edit</a></label>
-                            <div id="gs1here"></div><br>
-                            <div id="gs2here"></div>
-                        
-                        <label style="margin-top:5%;">Some Questions to ask yourself:</label>
-                            <span>Would this person become a user of your product?</span><br>
-                            <span>Does this person represent your current user base?</span>
-                    </div>
-                    
-                    <div class="row" style="margin-top: 10%">
-                        <input id="#" type="submit" value="Save Character!" style="float: right" class="button-primary">
-                        <a href="page2.html" class="button">back</a>
-                    </div>
-                </section>
+          <div class="row">
+            <label for="char-title">Title</label>
+            <input id="char-title" class="u-full-width" type="text" placeholder="The Artist, The Coder, etc." v-model="character.title">
+          </div>
+          
+          <div class="row">
+            <div class="six columns">
+              <label for="char-age">Age (in years)</label>
+              <input id="char-age" class="u-full-width" type="number" v-model="character.age">
             </div>
-        </div>
-    </body>
+
+            <div class="six columns">
+              <label>Gender</label>
+              <input type="radio" name="gender" value="male" v-model="character.gender"><span class="label-body" style="margin-right: 5%;"> Male</span>
+              <input type="radio" name="gender" value="female" v-model="character.gender"><span class="label-body" style="margin-right: 5%;"> Female</span>
+              <input type="radio" name="gender" value="other" v-model="character.gender"><span class="label-body" style="margin-right: 5%;"> Other</span>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="six columns">
+              <label for="char-loc">Location</label>
+              <input class="u-full-width" id="char-loc" type="text" placeholder="Utrecht, the midwest, Hawaii, etc." name="location" v-model="character.location">
+            </div>
+            
+            <div class="six columns">
+              <label>Environment</label>
+              
+              <input type="checkbox" name="areatype" value="Rural" v-model="character.env">
+              <span class="label-body" style="margin-right: 5%;"> Rural</span>
+
+              <input type="checkbox" name="areatype" value="Suburban" v-model="character.env">
+              <span class="label-body" style="margin-right: 5%;"> Suburban</span>
+              
+              <input type="checkbox" name="areatype" value="Urban" v-model="character.env">
+              <span class="label-body" style="margin-right: 5%;"> Urban</span>
+            </div>
+          </div>
+        </section>
+        <!-- Anxieties & Motivations -->
+        <section class="page-two" v-bind:class="{ active: index == 1 }" data-title="Anxieties &amp; Motivations">
+          <div class="row card">
+            <img v-if="character.image" v-bind:src="character.image" width="50" height="50" class="card-img">
+            <div class="card-persona">
+              <span style="font-weight: 600;">{{ character.name }}</span><br>
+              <span>{{ character.title }}</span><br>       
+            </div>
+            <div class="card-location">
+              <span>⚑ {{ character.location }}</span>
+            </div>
+          </div>
+          
+          <div class="row">
+            Fill in as many as you need.
+            
+            <label for="am_1">Anxiety/Motivation 1</label>
+            <textarea id="am_1" class="u-full-width" v-model="character.am.first"></textarea>
+
+            <label for="am_2">Anxiety/Motivation 2</label>
+            <textarea id="am_2"  class="u-full-width" v-model="character.am.second"></textarea>
+
+            <label for="am_3">Anxiety/Motivation 3</label>
+            <textarea id="am_3"  class="u-full-width" v-model="character.am.third"></textarea>
+          </div>
+        </section>
+        <!-- Influencing Events -->
+        <section class="page-three" v-bind:class="{ active: index == 2 }" data-title="Influencing Events">
+          <div class="row card">
+            <img v-if="character.image" v-bind:src="character.image" width="50" height="50" class="card-img">
+            <div class="card-persona">
+              <span style="font-weight: 600;">{{ character.name }}</span><br>
+              <span>{{ character.title }}</span><br>       
+            </div>
+            <div class="card-location">
+              <span>⚑ {{ character.location }}</span>
+            </div>
+          </div>
+          
+          <div class="row">
+            Fill in as many as you need.
+            
+            <label for="ev_1">Event 1</label>
+            <textarea id="ev_1" class="u-full-width" v-model="character.ev.first"></textarea>
+
+            <label for="ev_2">Event 2</label>
+            <textarea id="ev_2"  class="u-full-width" v-model="character.ev.second"></textarea>
+
+            <label for="ev_3">Event 3</label>
+            <textarea id="ev_3"  class="u-full-width" v-model="character.ev.third"></textarea>
+          </div>
+        </section>
+        <!-- Triggering Situations -->
+        <section class="page-four" v-bind:class="{ active: index == 3 }" data-title="Triggering Situations">
+          <div class="row card">
+            <img v-if="character.image" v-bind:src="character.image" width="50" height="50" class="card-img">
+            <div class="card-persona">
+              <span style="font-weight: 600;">{{ character.name }}</span><br>
+              <span>{{ character.title }}</span><br>       
+            </div>
+            <div class="card-location">
+              <span>⚑ {{ character.location }}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            Fill in as many as you need.
+            
+            <label for="si_1">Situation 1</label>
+            <textarea id="si_1" class="u-full-width" v-model="character.si.first"></textarea>
+
+            <label for="si_2">Situation 2</label>
+            <textarea id="si_2"  class="u-full-width" v-model="character.si.second"></textarea>
+
+            <label for="si_3">Situation 3</label>
+            <textarea id="si_3"  class="u-full-width" v-model="character.si.third"></textarea>
+          </div>
+        </section>
+        <!-- Product/Service Info -->
+        <section class="page-five" v-bind:class="{ active: index == 4 }" data-title="Product/Service Info">
+          <div class="row">
+            <label>Product/Service Image (keep small)</label>
+            <input type='file' name="product" v-on:change="readImg" /><br>
+            <img v-if="product.image" id="prod_pic" v-bind:src="product.image" alt="Product Image" width="150" height="150"><br>
+          </div>
+
+          <div class="row">
+            <label for="prod_name">Product/Service Title</label>
+            <input class="u-full-width" type="text" placeholder="Widget 2.0" id="prod_name" v-model="product.name">
+
+            <label for="prod_type">Product/Service Artifact</label>
+            <input class="u-full-width" type="text" placeholder="website, app, kiosk, etc." id="prod_type" v-model="product.type">
+            
+            <label for="prod_env">Product/Service Environment</label>
+            <input class="u-full-width" type="text" placeholder="at home, at work, on-the-go, etc." id="prod_env" v-model="product.env">
+            
+            <label for="prod_data">Product/Service Data Presented</label>
+            <input class="u-full-width" type="text" placeholder="employee data, stuff for sale, etc." id="prod_data" v-model="product.data">
+          </div>
+          
+          <h2 style="margin-top:10%;">Character's Encounter</h2>
+          
+          <div class="row card">
+            <img v-if="character.image" v-bind:src="character.image" width="50" height="50" class="card-img">
+            <div class="card-persona">
+              <span style="font-weight: 600;">{{ character.name }}</span><br>
+              <span>{{ character.title }}</span><br>       
+            </div>
+            <div class="card-location">
+              <span>⚑ {{ character.location }}</span>
+            </div>
+          </div>
+          
+          <div class="row">
+            <label for="en_time">Duration of Encounter with Product/Service</label>
+            <input class="u-full-width" type="text" placeholder="5 minutes, 1 hour, etc." id="en_time" v-model="character.en.time">
+            
+            <label for="en_mind">Character's State of Mind</label>
+            <textarea id="en_mind" v-model="character.en.mind" class="u-full-width"></textarea>
+            
+            <label for="en_goal_1">Character's Goal #1</label>
+            <textarea id="en_goal_1" v-model="character.en.goal.first" class="u-full-width"></textarea>
+            
+            <label for="en_goal_2">Character's Goal #2</label>
+            <textarea id="en_goal_2" v-model="character.en.goal.second" class="u-full-width"></textarea>
+          </div>
+        </section>
+        <!-- Results -->
+        <section class="page-six" v-bind:class="{ active: index == 5 }" data-title="Results!">
+          <div class="row">                
+            <div class="six columns card">
+              <img v-if="character.image" v-bind:src="character.image" width="150" height="150" style="display:block; margin: 0 auto;"><br>
+              <p class="name">{{ character.name }}</p>
+              <p class="title">{{ character.title }}</p>
+              <p class="gender-age">
+                <span>{{ character.gender }}</span>, <span v-if="character.age != ''">{{ character.age }}-year-old</span>
+              </p>
+              <p class="location-env">
+                <span>{{ character.location }}</span> <span v-if="character.env != ''">(<span v-for="env in character.env">{{ env }}</span>)</span>
+              </p>
+              <a href="#" v-on:click.stop="pageTurn(0)">✎ edit character</a>
+            </div>
+            
+            <div class="six columns card">
+              <img v-if="product.image" v-bind:src="product.image" width="150" height="150" style="display:block; margin: 0 auto;"><br>
+              <span style="font-weight: 600;">{{ product.name }}</span><br>
+              <span>{{ product.type }}</span><br>
+              <span>{{ product.data }}</span><br>
+              <span>{{ product.env }}</span><br>
+              Length of Encounter: <span>{{ character.en.time }}</span>
+              <br><br>
+              <a href="#" v-on:click.stop="pageTurn(4)">✎ edit product</a>
+            </div>
+          </div>
+          
+          <div class="row">
+            <label>Anxieties &amp; Motivations <a href="#" v-on:click.stop="pageTurn(1)">✎ edit</a></label>
+              <p>{{ character.am.first }}</p>
+              <p>{{ character.am.second }}</p>
+              <p>{{ character.am.third }}</p>
+            
+            <label style="margin-top:5%;">Influencing Events <a href="#" v-on:click.stop="pageTurn(2)">✎ edit</a></label>
+              <p>{{ character.ev.first }}</p>
+              <p>{{ character.ev.second }}</p>
+              <p>{{ character.ev.third }}</p>
+            
+            <label style="margin-top:5%;">Triggering Situations <a href="#" v-on:click.stop="pageTurn(3)">✎ edit</a></label>
+              <p>{{ character.si.first }}</p>
+              <p>{{ character.si.second }}</p>
+              <p>{{ character.si.third }}</p>
+            
+            <label style="margin-top:5%;">State of Mind <a href="#" v-on:click.stop="pageTurn(4)">✎ edit</a></label>
+              <p>{{ character.en.mind }}</p>
+            
+            <label style="margin-top:5%;">Goals <a href="#" v-on:click.stop="pageTurn(4)">✎ edit</a></label>
+              <p>{{ character.en.goal.first }}</p>
+              <p>{{ character.en.goal.second }}<p/>
+            
+            <label style="margin-top:5%;">Some Questions to ask yourself:</label>
+              <span>Would this person become a user of your product?</span><br>
+              <span>Does this person represent your current user base?</span>
+          </div>
+        </section>
+        <!-- pages:end -->
+
+        <!-- footer:start -->
+        <footer>
+          <div class="row">
+            <!-- back button -->
+            <button v-if="index > 0" id="subTest" class="button" v-on:click.stop="pageTurn('-')">Back</button>
+            <!-- next button -->
+            <button v-if="index < sections.length - 2" id="subTest" style="float: right" class="button-primary" v-on:click.stop="pageTurn('+')">Next</button>
+            <!--  -->
+            <button v-if="index == sections.length - 2" id="subTest" style="float: right" class="button-primary" v-on:click.stop="pageTurn('+')">Finish</button>
+          </div>
+        </footer>
+        <!-- footer:end -->
+      </div>
+    </div>
+  </body>
 </html>
